@@ -3,52 +3,41 @@ import React, { useState } from "react";
 
 function App() {
 // Define a custom dictionary of words and their corrections
-const customDictionary = {
-  teh: "the",
-  wrok: "work",
-  fot: "for",
-  exampl: "example",
-};
+const Dictionary = 
+[
 
-const[inputText,setinputText]=useState('')
-const[suggestedText,setsuggestedText]=useState('')
+    { word: "React", meaning: "A JavaScript library for building user interfaces." },
+
+    { word: "Component", meaning: "A reusable building block in React." },
+
+    { word: "State", meaning: "An object that stores data for a component." }
+
+];
+
+
+const [input,setInput]=useState('');
+const [answer,setAnswer]=useState('')
+
  
- const handleInputChange = (e) => {
-    const text = e.target.value;
-    setinputText(text);
-
-    // Implement a basic spelling check and correction
-    const words = text.split(" ");
-    const correctedWords = words.map((word) => {
-      const correctedWord = customDictionary[word.toLowerCase()];
-      return correctedWord || word;
-    });
-
-    const correctedText = correctedWords.join(" ");
-
-    // Set the suggested text (first corrected word)
-    const firstCorrection = correctedWords.find(
-      (word, index) => word !== words[index]
-    );
-    setsuggestedText(firstCorrection || "" );
+ const handlesearch = () => {
+    let result=Dictionary.filter(e=>e.word.toLowerCase()===input.toLowerCase());
+    console.log(result)
+    if(result.length>0){
+      setAnswer(result[0].meaning)
+    }else{
+      setAnswer('Word not found in the dictionary.')
+    }
   };
 
 
   return (
      <div>
-        <h1>Spell Check and Auto-Correction</h1>
-        <textarea
-          value={inputText}
-          onChange={handleInputChange}
-          placeholder="Enter text..."
-          rows={5}
-          cols={40}
-        />
-        {suggestedText && (
-          <p>
-            Did you mean: <strong>{suggestedText}</strong>?
-          </p>
-        )}
+        <h1>Dictionary App</h1>
+        <input type="text" value={input} onChange={(e)=>setInput(e.target.value)} placeholder="Search for a word..." />
+       <button type="button" onClick={handlesearch} >Search</button>
+       <h3>Definition:</h3>
+       {answer?<p>{answer}</p>:''}
+       
       </div>
   );
 }

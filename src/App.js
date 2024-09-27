@@ -39,7 +39,7 @@ const handlesearch = (e) => {
   return (
      <div>
         <h1>Spell Check and Auto-Correction</h1>
-        <input type="text" onChange={handlesearch} placeholder="Enter text..." />
+        <textarea name="" id="" onChange={handlesearch} placeholder="Enter text..."></textarea>
       {show===true?(<p><span >Did you mean: </span><span>{input}</span></p>):('')} 
       </div>
   );
